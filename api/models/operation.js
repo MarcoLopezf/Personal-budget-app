@@ -21,6 +21,10 @@ const Operation= db.define('Operation',{
             values: ['SUM', 'REST']
           }),
         allowNull:false
+    },
+    state:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true
     }
 
 

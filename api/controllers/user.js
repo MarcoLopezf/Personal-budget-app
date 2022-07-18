@@ -1,3 +1,4 @@
+const bcryptjs=require('bcryptjs')
 const User = require("../models/user");
 
 
@@ -17,9 +18,26 @@ const getUser=async(req,res)=>{
 
 const postUser=async(req,res)=>{
 
-    const {body}=req;
+    const { email , name , password}=req.body;
     try {
-        const user= new User(body);
+        
+        const invalidEmail= User.findOne({
+            where:{
+                email:email
+            }
+        })
+        if(invalidEmail){
+            return res.json({
+                msg:`The user with the email ${email} already exist`
+            })
+        }
+        
+        
+        const user= new User({name, email, password, state:true});
+
+        const salt=bcryptjs.genSaltSync(10);
+        user.password=bcryptjs.hashSync(password,salt)
+
         await user.save()
         res.json(user)
 

@@ -1,16 +1,26 @@
 const { Router } = require("express");
+const { check } = require('express-validator');
 const { getUser, updateUser, deleteUser, postUser } = require("../controllers/user");
+const { emailExist } = require("../helpers/db-validators");
+const { validateFields } = require("../middlewares/validate");
+const { validatejwt } = require("../middlewares/validate-jwt");
 
 
 const router=Router();
 
-router.post('/',postUser)
+router.post('/',[
+    check('email', 'El correo no es valido').isEmail(),
+    check('password', 'La contraseña es obligatoria').isLength({min:6}),
+    check('email').custom((email)=>emailExist(email)),
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
+    validateFields    
+],postUser)
 
-router.get('/:id',getUser)
+router.get('/:id',[validatejwt,validateFields],getUser)
 
-router.put('/:id',updateUser)
+router.put('/:id',[validatejwt,validateFields],updateUser)
 
-router.delete('/:id',deleteUser)
+router.delete('/:id',[validatejwt,validateFields],deleteUser)
 
 
 

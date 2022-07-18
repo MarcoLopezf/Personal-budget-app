@@ -2,11 +2,48 @@ const { response } = require("express");
 const Operation = require("../models/operation");
 const User = require("../models/user");
 
+const getOperations=async(req,res)=>{
 
-const getOperations=async(req,res=response)=>{
+    const operation= await Operation.findAll()
     
+    if(operation.length===0){
+        res.send('no hay operaciones')
+    }else{
+        res.json(operation)
+    }
+}
+
+
+
+
+const getRegister=async(req,res=response)=>{
+    const {id}=req.params
+    console.log('hola')
+
+    const operation= await Operation.findByPk(id)
+    if(!operation){
+        return res.json({
+            msg:`Couldn't find the operation with the ID ${id} `
+        })
+    }
+    res.json(operation)
+}
+
+const getOperationsById=async(req,res=response)=>{
+    
+
+    const {id}=req.params
     //TODO
-    const operations= await Operation.findAll()
+    const operations= await Operation.findAll({
+        order:[["createdAt","DESC"]],
+        where:{
+            operationId: id,
+            state:true
+        },
+        include:{
+            model:User
+        }
+    })     
     console.log(typeof operations)
     if(operations.length===0){
         res.send('no hay operaciones')
@@ -61,4 +98,6 @@ module.exports={
     addOperation,
     updateOperation,
     deleteOperation,
-    getOperations}
+    getOperations,
+    getOperationsById,
+    getRegister}
