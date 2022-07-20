@@ -15,9 +15,9 @@ router.get('/:id',[validatejwt,validateFields],getOperationsById)
 
 router.post('/',[
     validatejwt,
-    check('name').not().isEmpty(),
-    check('type').not().isEmpty(),
-    check('quantity').not().isEmpty(),
+    check('Name').not().isEmpty(),
+    check('Type').not().isEmpty(),
+    check('Quantity').not().isEmpty(),
     validateFields
 ],addOperation)
 

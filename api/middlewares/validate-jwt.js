@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 
     const validatejwt=async(req,res=response,next)=>{
-        const token=req.header('token');
+        const token=req.header('x-token');
         if(!token){
             return res.status(401).json({msg:'no hay token en la peticion'})
         }
