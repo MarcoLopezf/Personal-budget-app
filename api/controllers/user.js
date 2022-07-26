@@ -1,5 +1,6 @@
 const bcryptjs=require('bcryptjs')
 const User = require("../models/user");
+const generateJWT=require('../helpers/generate-jwt')
 
 
 const getUser=async(req,res)=>{
@@ -21,11 +22,12 @@ const postUser=async(req,res)=>{
     const { email , name , password}=req.body;
     try {
         
-        const invalidEmail= User.findOne({
+        const invalidEmail= await User.findOne({
             where:{
                 email:email
             }
         })
+        console.log(invalidEmail)
         if(invalidEmail){
             return res.json({
                 msg:`The user with the email ${email} already exist`
@@ -39,7 +41,10 @@ const postUser=async(req,res)=>{
         user.password=bcryptjs.hashSync(password,salt)
 
         await user.save()
-        res.json(user)
+        console.log(user)
+        const token=await generateJWT(user.id)
+
+        res.json({user,token})
 
     } catch (error) {
         console.log(error)

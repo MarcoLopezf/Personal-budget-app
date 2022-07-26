@@ -3,7 +3,10 @@ const User = require("../models/user")
 
 
 const emailExist=async(email='')=>{
-    const validateEmail= await User.findOne({email})
+    const validateEmail= await User.findOne({where:{
+        email:email
+    }})
+    console.log(validateEmail)
     if(validateEmail){
      throw new Error('el correo ya esta registrado')
     }}

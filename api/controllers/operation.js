@@ -18,7 +18,6 @@ const getOperations=async(req,res)=>{
 
 const getRegister=async(req,res=response)=>{
     const {id}=req.params
-    console.log('hola')
 
     const operation= await Operation.findByPk(id)
     if(!operation){
@@ -31,7 +30,7 @@ const getRegister=async(req,res=response)=>{
 
 const getOperationsById=async(req,res=response)=>{
     
-
+    let total=0
     const {id}=req.params
     //TODO
     const operations= await Operation.findAll({
@@ -43,14 +42,14 @@ const getOperationsById=async(req,res=response)=>{
         include:{
             model:User
         }
-    })     
-    console.log(typeof operations)
-    if(operations.length===0){
-        res.send('no hay operaciones')
-    }else{
-        res.json(operations)
+    })  
+    
+        res.json(
+            operations
+            
+        )
     }
-}
+
 
 const addOperation= async(req,res=response)=>{
 
@@ -84,8 +83,9 @@ const updateOperation= async(req,res=response)=>{
 }
 const deleteOperation= async(req,res=response)=>{
     const {id}=req.params
+    console.log('este es el id', id)
     const operation= await Operation.findByPk(id)
-
+    console.log(operation)
     if(operation){
         await operation.update({state:false})
         return res.json(operation)
