@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
-import { Alert, Badge, Button, Container } from 'react-bootstrap';
+import { Alert, Badge, Button, Container, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOperation, getOperations } from '../redux/actions';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 
 function Home() {
     
-    const navigate=useNavigate()
     const dispatch=useDispatch()
     const operations= useSelector((state) => state.operations);
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user.user.id)
     
     
     const getTotal=()=>{
@@ -30,8 +29,21 @@ function Home() {
     },[dispatch])
 
     const handleDelete=(id)=>{
-        dispatch(deleteOperation(id));
-        window.location.reload();
+      
+    Swal.fire({
+        title: 'Do you want to save the changes?',
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            dispatch(deleteOperation(id));
+            Swal.fire('Saved!', '', 'success')
+                .then(()=>{
+                    window.location.reload();
+                })
+    }
+    })
+        
 
     }
 
@@ -53,12 +65,18 @@ function Home() {
           </Container>
             ):(<>
                 <div className="d-grid gap-2">
-            <Button as={Link} to={'/create'} variant="secondary" size="lg">
+            <Button as={Link} to={'/create'} variant="dark" size="lg">
                 Create new register.
             </Button>
 
             </div>
-        <table className="table-dark table-bordered">
+        <Table className="mt-4"
+            responsive
+            striped
+            bordered
+            hover
+            size="sm"
+            variant="table table-dark table-striped">
             <thead>
                 <tr className="text-dark">
                 <th>#</th>
@@ -110,8 +128,20 @@ function Home() {
 
         ))}
             
-        </table>
-        <h2>Account balance<span className="badge bg-secondary">{getTotal()}</span></h2>
+        </Table>
+        <div className="d-grid gap-2">
+        <h2>Total account balance: 
+            {getTotal()>0?
+            <Badge bg="success" text="dark">
+            {" "}
+            {getTotal()}{" "}
+          </Badge>:<Badge bg="danger" text="dark">
+                          {" "}
+                          {getTotal()}{" "}
+                        </Badge>
+        }
+            </h2>
+        </div>
         </>
         )}
         

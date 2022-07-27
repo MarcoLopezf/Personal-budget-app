@@ -58,7 +58,6 @@ const addOperation= async(req,res=response)=>{
         const operation=await Operation.create(body)
 
         const user=await User.findByPk(id)
-        console.log(body)
         
         await user.addOperation(operation)
         
@@ -83,9 +82,7 @@ const updateOperation= async(req,res=response)=>{
 }
 const deleteOperation= async(req,res=response)=>{
     const {id}=req.params
-    console.log('este es el id', id)
     const operation= await Operation.findByPk(id)
-    console.log(operation)
     if(operation){
         await operation.update({state:false})
         return res.json(operation)

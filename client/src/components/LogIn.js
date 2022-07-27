@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {Button,Container,Form} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import authService from '../services/auth-services';
-
+import Swal from 'sweetalert2'
 function LogIn() {
     
     const navigate=useNavigate()
@@ -24,11 +24,27 @@ function LogIn() {
 
     const handleLogin=async(e)=>{
         e.preventDefault();
+        if(!email || !password){
+          return Swal.fire(
+            'Incomplete Fields',
+            'Please complete the required fields',
+            'question'
+          )
+        }
         try {
             await authService.singUp(email,password)
-                .then(()=>{
-                    alert('ok')
-                    navigate('/home')
+                .then((res)=>{
+                    console.log(res.user)
+                    if(res.user){
+                      Swal.fire(
+                        'Succesfully logged in!',
+                        ' ',
+                        'success'
+                      )
+                    navigate('/home')}
+                    else{
+                      alert(res.msg)
+                    }
                 })
         } catch (error) {
             
@@ -53,9 +69,7 @@ function LogIn() {
       <Form.Label>Password</Form.Label>
       <Form.Control type="password" placeholder="Password" name='password'value={input.password} onChange={handleOnChange}/>
     </Form.Group>
-    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-      <Form.Check type="checkbox" label="Check me out" />
-    </Form.Group>
+    
     <Button variant="primary" type="submit">
       Submit
     </Button>

@@ -3,16 +3,23 @@
 const GET_OPERATIONS='get_operations'
 const GET_OPERATION='get_operation'
 const DELETE_OPERATION='delete_operation'
-const  CREATE_OPERATION= 'create_operation'
+const CREATE_OPERATION= 'create_operation'
+const EDIT_OPERATION= 'edit_operation'
 
 const initialState={
     operations:[],
-    operation:[]
+    operation:{}
 }
 
 const rootReducer=(state= initialState,{type,payload})=>{
     
     switch(type){
+        case EDIT_OPERATION:{
+            return{
+                ...state,
+                operation:payload
+            }
+        }
         case GET_OPERATIONS:{
             return{
                 ...state,

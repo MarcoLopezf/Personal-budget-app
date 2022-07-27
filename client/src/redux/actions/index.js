@@ -52,3 +52,15 @@ export function createOperation(body){
             })
     }
 }
+
+export function editOperation(id,body){
+    return async function(dispatch){
+        return axios.put(`http://localhost:7000/api/operations/${id}`,body, {headers: authHeader()})
+            .then(res=>{
+                dispatch({
+                    type:'edit_operation',
+                    payload:res.data
+                })
+            })
+    }
+}

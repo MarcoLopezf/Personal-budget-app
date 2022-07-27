@@ -2,7 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import { Badge, Button, Container, Form } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { createOperation } from '../redux/actions'
+import Swal from 'sweetalert2'
 
 
 
@@ -28,11 +30,13 @@ function Create() {
 
     const user= JSON.parse(localStorage.getItem('user'))
     const dispatch=useDispatch()
+    const navigate= useNavigate()
     const [input, setInput]=useState({
         Name:'',
         Concept:'',
         Quantity:'',
         Type:'',
+        Date:'',
         id:user.user.id
     })
     const [error,setError]=useState({
@@ -56,12 +60,26 @@ function Create() {
     }
     const handleSubmit=(e)=>{
       e.preventDefault()
+      
       if(!input.Concept || !input.Name || !input.Quantity){
-        return alert('Incomplete Fields.')
+        return Swal.fire({
+          icon:'error',
+          title:'Incomplete fields.',
+          text:'Please complete the missing fields'
+        })
       }
       input.Quantity= +input.Quantity
       try {
         dispatch(createOperation(input))
+          .then(()=>{
+            Swal.fire(
+              'Register created succesfully!',
+              '',
+              'success'
+            ).then(()=>{
+              navigate('/home')
+            })
+          })
       } catch (error) {
         console.log(error)
       }
@@ -103,6 +121,19 @@ function Create() {
                         {error.Concept}
                       </Badge>
                     )}
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>Date</Form.Label>
+        <Form.Control 
+        type='date' 
+        name='Date'
+        placeholder='dd/mm/aa ' 
+        onChange={handleOnChange}/>
+        {/* {error.Concept && (
+                      <Badge bg="danger" t className="text-white ">
+                        {error.Concept}
+                      </Badge>
+                    )} */}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Quantity</Form.Label>

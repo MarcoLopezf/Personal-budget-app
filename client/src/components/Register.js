@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import {useNavigate } from 'react-router-dom'
 import authService from '../services/auth-services'
+import Swal from 'sweetalert2'
 
 function Register() {
 
@@ -17,12 +18,28 @@ function Register() {
 
   const handleRegister=async(e)=>{
     e.preventDefault()
-    
+    if(!email || !password || !name){
+      return Swal.fire(
+        'Incomplete Fields',
+        'Please complete the required fields',
+        'question'
+      )}
+    if(password.length<5){
+      return  Swal.fire(
+        'Password error ',
+        'Password must have at least 6 characters',
+        'error'
+      )}
+     
     
     try {
       await authService.register(name,email,password)
         .then(res=>{
-          alert('Register ok.')
+          Swal.fire(
+            'Account created succesfully!!',
+            ' ',
+            'success'
+          )
           console.log(res.data)
         })
         navigate('/home')
@@ -32,7 +49,6 @@ function Register() {
   }
   const handleOnChange=(e)=>{
     e.preventDefault()
-    console.log('hola')
     setInput({
         ...input,
         [e.target.name]:e.target.value
@@ -48,7 +64,7 @@ function Register() {
           <Container  className="mt-5 " style={{ width: '25rem' }}>
     
     <Form onSubmit={handleRegister} >
-    <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Group className="mb-3" controlId="formBasicName">
       <Form.Label>Name</Form.Label>
       <Form.Control type="text" placeholder="Enter email" name='name' value={input.name} onChange={handleOnChange}/>
       
@@ -66,9 +82,7 @@ function Register() {
       <Form.Label>Password</Form.Label>
       <Form.Control type="password" placeholder="Password" name='password'value={input.password} onChange={handleOnChange}/>
     </Form.Group>
-    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-      <Form.Check type="checkbox" label="Check me out" />
-    </Form.Group>
+    
     <Button variant="primary" type="submit">
       Submit
     </Button>

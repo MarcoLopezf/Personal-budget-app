@@ -13,9 +13,11 @@ function Landing() {
           Hi! This app was built for <a  href='https://www.alkemy.org/' target="_blank">Alkemy.org</a>  fullstack project.<br/>
           Here, you can management your finances and bring the control of your deposits and withdraws, please login or create an account for start!
       </Alert>
+      
       <Button as={Link} to={'/login'}>login</Button>
       {'        '}
       <Button as={Link} to={'/register'}>Create an account</Button>
+      
     </Container>
     
   </>
