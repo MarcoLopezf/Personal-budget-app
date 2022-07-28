@@ -21,12 +21,19 @@ function NavBar() {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand='sm' bg="dark" variant="dark">
+        <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
         <Container>
+          <Navbar.Collapse>
           <Navbar.Brand href="/">Personal Budget App📈</Navbar.Brand>
+          
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
-            { user &&<Nav.Link onClick={handleLogOut} href="#features">Log out</Nav.Link>}</Nav>
+           {user? <Nav.Link href="/home">Home</Nav.Link>: <Nav.Link href='/register'>Register</Nav.Link>}
+           {!user &&  <Nav.Link href='/login'>Login</Nav.Link>}
+            { user &&<Nav.Link onClick={handleLogOut} href="#features">Log out</Nav.Link>}
+          </Nav>
+
+          </Navbar.Collapse>
         </Container>
       </Navbar>
       <br />

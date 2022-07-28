@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Badge, Button, Container, Form } from 'react-bootstrap'
+import { Badge, Button, Card, Container, Form } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { createOperation } from '../redux/actions'
@@ -88,13 +88,17 @@ function Create() {
 
   return (
   <>
-    <Container style={{ height: 715 }}>
-        <h2>
-            <Badge bg="secondary">Create a new register!</Badge>
+    <Container bg='dark'  style={{ height: 600 }}>
+        <h2 className="mt-5 text-center h2">
+            <Badge bg="info">Create a new register!</Badge>
         </h2>
+        <Container className="mt-5 " style={{ width: '35rem' }}>
+
+        <Card bg='dark'>
+          <Card.Body> 
         <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Name</Form.Label>
+        <Form.Label className="text-white">Name</Form.Label>
         <Form.Control 
           name='Name'
           type="text" 
@@ -108,7 +112,7 @@ function Create() {
                     )}
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>Concept</Form.Label>
+        <Form.Label className="text-white">Concept</Form.Label>
         <Form.Control 
         as="textarea" 
         name='Concept'
@@ -123,20 +127,20 @@ function Create() {
                     )}
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>Date</Form.Label>
+        <Form.Label className="text-white">Date</Form.Label>
         <Form.Control 
         type='date' 
         name='Date'
         placeholder='dd/mm/aa ' 
         onChange={handleOnChange}/>
         {/* {error.Concept && (
-                      <Badge bg="danger" t className="text-white ">
-                        {error.Concept}
-                      </Badge>
+          <Badge bg="danger" t className="text-white ">
+          {error.Concept}
+          </Badge>
                     )} */}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Quantity</Form.Label>
+        <Form.Label className="text-white">Quantity</Form.Label>
         <Form.Control 
         type="number" 
         placeholder="Quantity" 
@@ -145,14 +149,14 @@ function Create() {
         name='Quantity'
         />
          {error.Quantity && (
-                      <Badge bg="danger" t className="text-white ">
+           <Badge bg="danger" t className="text-white ">
                         {error.Quantity}
                       </Badge>
                     )}
         </Form.Group>
       <Form.Group>
 
-        <Form.Label> Type</Form.Label>
+        <Form.Label className="text-white"> Type</Form.Label>
         <Form.Select 
         value={input?.Type} 
         name='Type'
@@ -174,6 +178,8 @@ function Create() {
         Create
       </Button>
     </Form>
+          </Card.Body></Card>
+          </Container>
     </Container>
   </>
   )
