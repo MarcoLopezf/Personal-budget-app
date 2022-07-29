@@ -11,13 +11,15 @@ function Register() {
   const [input,setInput]=useState({
     name:'',
     password:'',
+    passwordConfirm:'',
     email:''
   })
 
-  const {name,email,password}=input;
+  const {name,email,password,passwordConfirm}=input;
 
   const handleRegister=async(e)=>{
     e.preventDefault()
+    console.log(input)
     if(!email || !password || !name){
       return Swal.fire(
         'Incomplete Fields',
@@ -30,17 +32,30 @@ function Register() {
         'Password must have at least 6 characters',
         'error'
       )}
+     if(password !== passwordConfirm){
+      return  Swal.fire(
+        'Password error ',
+        'Passwords do not match',
+        'error'
+      )}
      
     
     try {
       await authService.register(name,email,password)
         .then(res=>{
+          if(res.msg){
+            return  Swal.fire(
+              `${res.msg}`,
+              '',
+              'error'
+            )}    
+          
           Swal.fire(
             'Account created succesfully!!',
             ' ',
             'success'
           )
-          console.log(res.data)
+          console.log(res)
         })
         navigate('/home')
     } catch (error) {
@@ -59,29 +74,32 @@ function Register() {
 
   return (
     <>
-    <h3 className='text-center display-3 font-weight-bold'>Create a new account</h3>
-    <Container className="mt-5 d-flex justify-content-md-center">
-          <Container  className="mt-5 " style={{ width: '30rem' }}>
+    <h3 className='text-center display-3 font-weight-bold'>Create a new account and get started!</h3>
+    <Container className="mt-3 d-flex justify-content-md-center">
+          <Container  className="mt-3 " style={{ width: '30rem' }}>
           <Card bg='dark'>
           <Card.Body>
     <Form onSubmit={handleRegister} >
     <Form.Group className="mb-3" controlId="formBasicName">
       <Form.Label className="text-white">Name</Form.Label>
-      <Form.Control type="text" placeholder="Enter email" name='name' value={input.name} onChange={handleOnChange}/>
+      <Form.Control type="text" placeholder="Enter your name" name='name' value={input.name} onChange={handleOnChange}/>
       
     </Form.Group>
 
     <Form.Group className="mb-3" controlId="formBasicEmail">
       <Form.Label className="text-white">Email address</Form.Label>
-      <Form.Control type="text" placeholder="Enter email" name='email' value={input.email} onChange={handleOnChange}/>
-      <Form.Text className="text-muted">
-        We'll never share your email with anyone else.
-      </Form.Text>
+      <Form.Control type="email" placeholder="Enter email" name='email' value={input.email} onChange={handleOnChange}/>
+      
     </Form.Group>
 
     <Form.Group className="mb-3" controlId="formBasicPassword">
       <Form.Label className="text-white">Password</Form.Label>
       <Form.Control type="password" placeholder="Password" name='password'value={input.password} onChange={handleOnChange}/>
+    </Form.Group>
+
+    <Form.Group className="mb-3" controlId="formBasicPassword2">
+      <Form.Label className="text-white">Confirm Password</Form.Label>
+      <Form.Control type="password" placeholder="Confirm Password" name='passwordConfirm'value={input.passwordConfirm} onChange={handleOnChange}/>
     </Form.Group>
     
     <Button variant="primary" type="submit">

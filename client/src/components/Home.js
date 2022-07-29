@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import { Alert, Badge, Button, Container, Table } from 'react-bootstrap';
+import { Alert, Badge, Button, Card, Container, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOperation, getOperations } from '../redux/actions';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2'
 
+import Swal from 'sweetalert2'
+import '../css/home.css'
 
 function Home() {
     
@@ -44,19 +45,20 @@ function Home() {
     }
     })
         
-
-    }
+}
+console.log(user.user)
 
 
     return (
         <div className='text-center'>
 
+            <h1 className="mt-3 h1 display-4">{user.user.name}'s finances  💰</h1>
         {!operations?.length? (
             <Container style={{ height: 715 }}>
             <Alert className="mt-5" variant="info">
               Hi! <b>{user.user.name}</b> please add some register 💸
             </Alert>
-            <div className="d-grid gap-2">
+            <div className="mt-5">
             <Button as={Link} to={'/create'} variant="secondary" size="lg">
                 Create new register.
             </Button>
@@ -64,12 +66,14 @@ function Home() {
             </div>
           </Container>
             ):(<>
-                <div className="d-grid gap-2">
-            <Button as={Link} to={'/create'} variant="dark" size="lg">
+                <div className="mt-4">
+            <Button as={Link} to={'/create'} variant="success" size="lg">
                 Create new register.
             </Button>
 
             </div>
+            <Container responsive className="mt-5 " > 
+        
         <Table className="mt-4"
             responsive
             striped
@@ -78,8 +82,8 @@ function Home() {
             size="sm"
             variant="table table-dark table-striped">
             <thead>
-                <tr className="text-dark">
-                <th>#</th>
+                <tr className="text-white">
+                <th>## </th>
                 <th>Register</th>
                 <th>Concept</th>
                 <th>Date</th>
@@ -90,7 +94,7 @@ function Home() {
                 </tr>
             </thead>
         {operations && operations?.slice(0,10).map((e,index)=>(
-            <tbody key={index+1} className="text-dark">
+            <tbody key={index+1} className="text-light">
             <tr>
                 <th scope='row'>{index+1}</th>
                 <td >{e.Name}</td>
@@ -112,14 +116,14 @@ function Home() {
                         </Badge>
                       </h5>)}
                 </td>
-                <td>{e.Quantity}</td>
+                <td>${e.Quantity}</td>
                 <td>
                     <Button as={Link} to={`/edit/${e.id}`}>
                         Edit
                     </Button>
                 </td>
                 <td>
-                    <Button onClick={()=>handleDelete(e.id)}>
+                    <Button variant='danger' onClick={()=>handleDelete(e.id)}>
                         X
                     </Button>
                 </td>
@@ -129,15 +133,17 @@ function Home() {
         ))}
             
         </Table>
+       
+        </Container>
         <div className="d-grid gap-2">
         <h2>Total account balance: 
             {getTotal()>0?
             <Badge bg="success" text="dark">
             {" "}
-            {getTotal()}{" "}
+            ${getTotal()}{" "}
           </Badge>:<Badge bg="danger" text="dark">
                           {" "}
-                          {getTotal()}{" "}
+                          ${getTotal()}{" "}
                         </Badge>
         }
             </h2>

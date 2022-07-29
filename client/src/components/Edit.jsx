@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { Badge, Button, Container, Form } from 'react-bootstrap'
+import { Badge, Button, Container, Form, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import {  useNavigate, useParams } from 'react-router-dom'
 import { editOperation, getOperation } from '../redux/actions'
@@ -95,12 +95,14 @@ function Edit() {
     
   return (
     <div><Container style={{ height: 715 }}>
-    <h2>
-        <Badge bg="secondary">Edit register.</Badge>
-    </h2>
+    <h1 className="mt-5 text-center h1">Edit Register </h1>
+    <Container className='mt-3 d-flex justify-content-md-center'>
+        <Container responsive className="mt-2 " style={{ width: '35rem' }}>
+        <Card bg='dark'>
+          <Card.Body> 
     <Form>
   <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Name</Form.Label>
+    <Form.Label className="text-white">Name</Form.Label>
     <Form.Control
             type="text"
             placeholder={operation.Name}
@@ -111,7 +113,7 @@ function Edit() {
     
   </Form.Group>
   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-    <Form.Label>Concept</Form.Label>  
+    <Form.Label className="text-white">Concept</Form.Label>  
     <Form.Control 
          as="textarea" rows={2}   
          value={input.Concept}
@@ -122,7 +124,7 @@ function Edit() {
   </Form.Group>
 
   <Form.Group className="mb-" controlId="formBasicPassword">
-    <Form.Label>Quantity</Form.Label>
+    <Form.Label className="text-white">Quantity</Form.Label>
     <Form.Control 
         type="number"
         value={input.Quantity}
@@ -130,7 +132,7 @@ function Edit() {
         onChange={e=>handleOnChange(e)}
      />
   </Form.Group>
-  <Form.Label> Type</Form.Label>
+  <Form.Label className="text-white"> Type</Form.Label>
   <Form.Select 
     disabled 
     id="disabledSelect"
@@ -138,7 +140,7 @@ function Edit() {
 
       <option hidden>{operation.Type==='SUM'? 'Deposit': 'Withdraw'}</option>
 </Form.Select>
-<Form.Text className="text-muted">
+<Form.Text className="text-white">
           The type of operation can't be changed
 </Form.Text>
  <br/> 
@@ -147,6 +149,9 @@ function Edit() {
     Edit
   </Button>
 </Form>
+</Card.Body></Card>
+</Container></Container>
+
 </Container></div>
   )
 }

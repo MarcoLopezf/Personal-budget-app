@@ -9,7 +9,10 @@ function App() {
     <>
     <Router>
       <NavBar/>
+      
+
       <AppRoutes/>
+      
     </Router>
     </>
   );

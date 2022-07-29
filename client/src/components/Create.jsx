@@ -89,10 +89,9 @@ function Create() {
   return (
   <>
     <Container bg='dark'  style={{ height: 600 }}>
-        <h2 className="mt-5 text-center h2">
-            <Badge bg="info">Create a new register!</Badge>
-        </h2>
-        <Container className="mt-5 " style={{ width: '35rem' }}>
+    <h1 className="mt-5 text-center h1">Add Register </h1>
+        <Container className='mt-3 d-flex justify-content-md-center'>
+        <Container responsive className="mt-2 " style={{ width: '35rem' }}>
 
         <Card bg='dark'>
           <Card.Body> 
@@ -180,7 +179,7 @@ function Create() {
     </Form>
           </Card.Body></Card>
           </Container>
-    </Container>
+    </Container></Container>
   </>
   )
 }

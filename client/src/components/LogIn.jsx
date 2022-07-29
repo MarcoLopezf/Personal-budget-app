@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {Badge, Button,Card,Container,Form} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import authService from '../../services/auth-services';
+import authService from '../services/auth-services';
 import Swal from 'sweetalert2'
 function LogIn() {
     
@@ -54,16 +54,16 @@ function LogIn() {
 
   return (
     <>
-    <h1 className="mt-5 text-center h1"><Badge bg="success" className="text-dark">Login</Badge></h1>
-    <Container className="mt-5 d-flex justify-content-md-center">
-      <Container  className="mt-5 " style={{ width: '30rem' }}>
+    <h2 className="mb-3 text-center h1">Login</h2>
+    <Container className="mt-3 d-flex justify-content-md-center">
+      <Container  className="mt-3 " style={{ width: '30rem' }}>
         <Card bg='dark'>
           <Card.Body>
 
             <Form onSubmit={handleLogin} >
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label  className="text-white">Email address</Form.Label>
-              <Form.Control type="text" placeholder="Enter email" name='email' value={input.email} onChange={handleOnChange}/>
+              <Form.Control type="email" placeholder="Enter email" name='email' value={input.email} onChange={handleOnChange}/>
               <Form.Text className="text-muted text-white">
                 We'll never share your email with anyone else.
               </Form.Text>
