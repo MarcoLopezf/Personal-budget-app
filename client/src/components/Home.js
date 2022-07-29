@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Alert, Badge, Button, Card, Container, Table } from 'react-bootstrap';
+import { Alert, Badge, Button,  Container, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOperation, getOperations } from '../redux/actions';
 import { Link } from 'react-router-dom';
@@ -22,6 +22,7 @@ function Home() {
             }else{
                 total-=e.Quantity
             }
+            return total
         })
         return total
     }
@@ -52,7 +53,7 @@ console.log(user.user)
     return (
         <div className='text-center'>
 
-            <h1 className="mt-3 h1 display-4">{user.user.name}'s finances  💰</h1>
+            <h1 className="mt-3 h1 display-4">{user.user.name}'s balance  💰</h1>
         {!operations?.length? (
             <Container style={{ height: 715 }}>
             <Alert className="mt-5" variant="info">

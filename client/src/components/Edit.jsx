@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { Badge, Button, Container, Form, Card } from 'react-bootstrap'
+import {  Button, Container, Form, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import {  useNavigate, useParams } from 'react-router-dom'
 import { editOperation, getOperation } from '../redux/actions'
@@ -37,7 +37,7 @@ function Edit() {
             Quantity:operation?.Quantity,
             Type:operation.Type==='SUM'? 'Deposit': 'Withdraw'
         })
-    const [error,setError]=useState({
+    const [/*error*/,setError]=useState({
         Name:'',
         Concept:'',
         Quantity:'',
