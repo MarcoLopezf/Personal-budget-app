@@ -69,8 +69,8 @@ const addOperation= async(req,res=response)=>{
     } 
 }
 const updateOperation= async(req,res=response)=>{
-    const {id}=req.params
-    const {body}=req
+    const {id}=req.params;
+    const {body}=req;
     const operation= await Operation.findByPk(id)
 
     if(operation){
