@@ -1,6 +1,6 @@
 # Personal-budget-app
 
-FullStack Project for www.alkemy.org
+Challenge Fullstack for www.alkemy.org
 
 
 For start
