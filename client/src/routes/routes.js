@@ -2,7 +2,7 @@ import React from "react";
 import { Route,Routes } from "react-router-dom";
 import Create from "../components/Create";
 import Edit from "../components/Edit";
-import Home from "../components/Home.js";
+import Home from "../components/Home";
 import Landing from "../components/landing";
 import LogIn from "../components/LogIn";
 import Register from "../components/Register";

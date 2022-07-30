@@ -56,8 +56,8 @@ console.log(user.user)
             <h1 className="mt-3 h1 display-4">{user.user.name}'s balance  💰</h1>
         {!operations?.length? (
             <Container style={{ height: 715 }}>
-            <Alert className="mt-5" variant="info">
-              Hi! <b>{user.user.name}</b> please add some register 💸
+            <Alert className="mt-5" variant="warning">
+              Welcome! <b>{user.user.name}</b> you don't have any register yet, press the button below to get started!💸
             </Alert>
             <div className="mt-5">
             <Button as={Link} to={'/create'} variant="secondary" size="lg">

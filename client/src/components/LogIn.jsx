@@ -43,7 +43,11 @@ function LogIn() {
                       )
                     navigate('/home')}
                     else{
-                      alert(res.msg)
+                      Swal.fire(
+                        `${res.msg}`,
+                        '',
+                        'error'
+                    )
                     }
                 })
         } catch (error) {
