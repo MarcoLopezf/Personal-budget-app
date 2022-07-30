@@ -5,7 +5,6 @@ import { deleteOperation, getOperations } from '../redux/actions';
 import { Link } from 'react-router-dom';
 
 import Swal from 'sweetalert2'
-import '../css/home.css'
 
 function Home() {
     
